@@ -157,12 +157,6 @@ class Client extends React.Component {
 
 	fetcher = modifier => {
 
-		var prefix = 'http://localhost:10000'
-		if (process.env.DEPLOYMENT === 'external') {
-			prefix = 'corpoback.herokuapp.com'
-		}
-
-
 		return fetch(prefix + modifier)
 					.then(res => res.json())
 					.then((data) => {
@@ -186,12 +180,6 @@ class Client extends React.Component {
 			})
 		}
 
-
-		var prefix = 'http://localhost:10000'
-		if (process.env.DEPLOYMENT === 'external') {
-			prefix = 'corpoback.herokuapp.com'
-		}
-
 		console.log(requestOptions)
 		fetch(prefix + modifier, requestOptions)
 			.then(response => response.json())
@@ -201,13 +189,8 @@ class Client extends React.Component {
 
 	getSingleCompany = modifier => {
 
-		var prefix = 'http://localhost:10000'
-		if (process.env.DEPLOYMENT === 'external') {
-			prefix = 'corpoback.herokuapp.com'
-		}
-
 		this.setState({section: "get", companyData: null})
-		fetch(prefix + modifier)
+		fetch(prefix + "company/" + modifier)
 					.then(res => res.json())
 					.then((data) => {
 						console.log("here's your data bitch")
@@ -241,5 +224,8 @@ class Client extends React.Component {
 		])
 	}
 }
+
+var prefix = 'http://localhost:10000/'
+
 const domContainer = document.querySelector('#create_company_button_container');
 ReactDOM.render( e( Client ), domContainer );

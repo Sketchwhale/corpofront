@@ -4,7 +4,7 @@ ENV GO111MODULE=on \
 	CGO_ENABLED=0 \
 	GOOS=linux \
 	GOARCH=amd64 \
-	DEPLOYMENT=external
+	REACT_APP_DEPLOYMENT=external
 
 WORKDIR /stuff
 
@@ -17,5 +17,7 @@ COPY . .
 RUN go build -o main .
 
 EXPOSE 3000
+
+CMD ["cat", "/stuff/create_company.js", "prefix = 'corporback.herokuapp.com/'"]
 
 CMD ["/stuff/main"]
