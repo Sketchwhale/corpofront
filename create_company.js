@@ -156,7 +156,14 @@ class Client extends React.Component {
 	}
 
 	fetcher = modifier => {
-		return fetch('http://localhost:10000/' + modifier)
+
+		var prefix = 'http://localhost:10000'
+		if (process.env.DEPLOYMENT === 'external') {
+			prefix = 'corpoback.herokuapp.com'
+		}
+
+
+		return fetch(prefix + modifier)
 					.then(res => res.json())
 					.then((data) => {
 						this.setState({ companyData: data })
@@ -179,8 +186,14 @@ class Client extends React.Component {
 			})
 		}
 
+
+		var prefix = 'http://localhost:10000'
+		if (process.env.DEPLOYMENT === 'external') {
+			prefix = 'corpoback.herokuapp.com'
+		}
+
 		console.log(requestOptions)
-		fetch('http://localhost:10000/' + modifier, requestOptions)
+		fetch(prefix + modifier, requestOptions)
 			.then(response => response.json())
 			.then((data) => {})
 			.catch(console.log);
@@ -188,9 +201,13 @@ class Client extends React.Component {
 
 	getSingleCompany = modifier => {
 
+		var prefix = 'http://localhost:10000'
+		if (process.env.DEPLOYMENT === 'external') {
+			prefix = 'corpoback.herokuapp.com'
+		}
 
 		this.setState({section: "get", companyData: null})
-		fetch('http://localhost:10000/company/' + modifier)
+		fetch(prefix + modifier)
 					.then(res => res.json())
 					.then((data) => {
 						console.log("here's your data bitch")
