@@ -124,9 +124,9 @@ class Client extends React.Component {
 		};
 	}
 
-	componentDidMount () {
-		this.fetcher( "all" )
-	}
+	//componentDidMount () {
+	//	this.fetcher( "all" )
+	//}
 
 	state = {
         companyData: null,
@@ -230,7 +230,7 @@ class Client extends React.Component {
 			e( 'div', { className: 'panel panel_left', key: "lefty" }, [
 				e('div', { className: 'buttons' }, [
 					e( 'input', { key: "inpu", type: 'text', onKeyDown: event => {(event.key === 'Enter' ? this.getSingleCompany(event.target.value) : null)}, className: 'button', placeholder: "Search by ID..." }, null),
-					e( 'button', { key: "dude", className: 'button'}, 'Add Company'),
+					e( 'button', { key: "dude", className: 'button', onClick: () => this.fetcher("all")}, 'Show All'),
 				]),
 			]),
 			e( 'div', { className: 'panel', key: "righty" }, [
