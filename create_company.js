@@ -160,7 +160,7 @@ class Client extends React.Component {
 
 	fetcher = modifier => {
 
-		if ( prefix == null ) {
+		if ( prefix === "" ) {
 			prefix = 'http://localhost:10000/'
 		}
 
@@ -187,7 +187,7 @@ class Client extends React.Component {
 			})
 		}
 
-		if ( prefix == null ) {
+		if ( prefix === "" ) {
 			prefix = 'http://localhost:10000/'
 		}
 
@@ -200,7 +200,7 @@ class Client extends React.Component {
 
 	getSingleCompany = modifier => {
 
-		if ( prefix == null ) {
+		if ( prefix === "" ) {
 			prefix = 'http://localhost:10000/'
 		}
 
@@ -243,4 +243,4 @@ class Client extends React.Component {
 const domContainer = document.querySelector('#create_company_button_container');
 ReactDOM.render( e( Client ), domContainer );
 
-const prefix
+var prefix = ""

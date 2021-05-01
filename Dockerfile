@@ -18,7 +18,7 @@ RUN go build -o main .
 
 EXPOSE 3000
 
-RUN echo "= 'http://corpoback.herokuapp.com/'" >> /stuff/create_company.js
+RUN echo "prefix = 'http://corpoback.herokuapp.com/'" >> /stuff/create_company.js
 CMD ["echo", "/stuff/create_company.js"]
 
 CMD ["/stuff/main"]
