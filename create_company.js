@@ -122,6 +122,9 @@ class Client extends React.Component {
 			companyData: null,
 			section: "showAll", 
 		};
+	}
+
+	componentDidMount () {
 		this.fetcher( "all" )
 	}
 
