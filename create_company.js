@@ -157,6 +157,10 @@ class Client extends React.Component {
 
 	fetcher = modifier => {
 
+		if ( prefix == null ) {
+			prefix = 'http://localhost:10000/'
+		}
+
 		return fetch(prefix + modifier)
 					.then(res => res.json())
 					.then((data) => {
@@ -180,6 +184,10 @@ class Client extends React.Component {
 			})
 		}
 
+		if ( prefix == null ) {
+			prefix = 'http://localhost:10000/'
+		}
+
 		console.log(requestOptions)
 		fetch(prefix + modifier, requestOptions)
 			.then(response => response.json())
@@ -188,6 +196,10 @@ class Client extends React.Component {
 	}
 
 	getSingleCompany = modifier => {
+
+		if ( prefix == null ) {
+			prefix = 'http://localhost:10000/'
+		}
 
 		this.setState({section: "get", companyData: null})
 		fetch(prefix + "company/" + modifier)
@@ -225,7 +237,7 @@ class Client extends React.Component {
 	}
 }
 
-var prefix = 'http://localhost:10000/'
-
 const domContainer = document.querySelector('#create_company_button_container');
 ReactDOM.render( e( Client ), domContainer );
+
+var prefix
