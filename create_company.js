@@ -243,4 +243,4 @@ class Client extends React.Component {
 const domContainer = document.querySelector('#create_company_button_container');
 ReactDOM.render( e( Client ), domContainer );
 
-var prefix
+const prefix
