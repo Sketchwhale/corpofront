@@ -17,10 +17,10 @@ const CompanyDetails = ({C, Subsidiaries, Owners, putter, setters, currentValues
 		e(CompanyCardWithInput, { values: C, subs: Subsidiaries, ows: Owners, putter: putter, setters: setters, currentValues: currentValues }, null),
 		e('div', {className: "companyCard"}, [
 			e(CompanyRowTitle, {labelName: "Subsidiaries", labelValue: ""}, null),
-			e('div', null, Subsidiaries == null ? null : Subsidiaries.map(o => e(CompanyRowTextWithButton, {labelName: "ID", labelValue: o.Owned.Id}, null) )),
+			e('div', null, Subsidiaries == null ? null : Subsidiaries.map(o => e(CompanyRowTextWithButton, {labelName: "ID", labelValue: o.OwnedId}, null) )),
 			e(CompanyRowEmptyRow, null, null),
 			e(CompanyRowTitle, {labelName: "Owners", labelValue: ""}, null),
-			e('div', null, Owners == null ? null : Owners.map(o => e(CompanyRowTextWithButton, {labelName: "ID", labelValue: o.Owned.Id}, null) )),
+			e('div', null, Owners == null ? null : Owners.map(o => e(CompanyRowTextWithButton, {labelName: "ID", labelValue: o.OwnerId}, null) )),
 			e(AddOwnerbutton, {labelName: "Add Beneficial Owner", labelValue: ""}, null),
 		])
 	])
