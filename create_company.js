@@ -2,19 +2,15 @@
 
 const e = React.createElement
 
-const RetrieveButton = ({onClick, section}) => {
-	return e('button', { onClick: onClick, className: section == "showAll" ? 'button_selected' : 'button' }, 'Show All' )
-}  
-
 const GetCompanySection = ({ companyData, putter, setters, currentValues }) => {
 	return e ('div', {key: "getcopsec"}, [
-		e( 'div', null, companyData == null ? null : e(CompanyDetails, { C: companyData.C, Owners: companyData.Owners, Subsidiaries: companyData.Subsidiaries, putter: putter, setters: setters, currentValues: currentValues}, null))
+		e( 'div', null, companyData == null ? null : e(CompanyDetails, { C: companyData.C, Owners: companyData.Owners, Subsidiaries: companyData.Subsidiaries, putter: putter, setters: setters, currentValues: currentValues }, null))
 	])
 }
 
 const CompanyDetails = ({C, Subsidiaries, Owners, putter, setters, currentValues }) => {
 	return e('div', null, [
-		e(CompanyCardWithInput, { values: C, subs: Subsidiaries, ows: Owners, putter: putter, setters: setters, currentValues: currentValues }, null),
+		e(CompanyCardWithInput, { values: C, putter: putter, setters: setters, currentValues: currentValues }, null),
 		e('div', {className: "companyCard"}, [
 			e(CompanyRowTitle, {labelName: "Subsidiaries", labelValue: ""}, null),
 			e('div', null, Subsidiaries == null ? null : Subsidiaries.map(o => e(CompanyRowTextWithButton, {labelName: "ID", labelValue: o.OwnedId}, null) )),
@@ -83,20 +79,20 @@ const CompanyCard = ({values}) => {
 	])
 }
 
-const CompanyCardWithInput = ({values, subs, ows, putter, setters, currentValues}) => {
+const CompanyCardWithInput = ({ values, putter, setters, currentValues }) => {
 
 	var nameValue = values.Name
 
-	return e( 'div', { className: "companyCard"}, [
+	return e( 'div', { className: "companyCard" }, [
 		e( CompanyRowTitle, {rowID: "k", labelName: "Company", labelValue: ""}, null),
 		e( CompanyRowText, {rowID: "i", labelName: "ID", labelValue: values.Id}, null),
 		e( CompanyRowInput, {rowID: "n", labelName: "Name", labelValue: values.Name, setter: setters.namer}, null),
-		e( CompanyRowInput, {rowID: "a", labelName: "City", labelValue: values.City, setter: setters.citter}, null),
-		e( CompanyRowInput, {rowID: "c", labelName: "Address", labelValue: values.Address, setter: setters.adder}, null),
+		e( CompanyRowInput, {rowID: "ci", labelName: "City", labelValue: values.City, setter: setters.citter}, null),
+		e( CompanyRowInput, {rowID: "co", labelName: "Country", labelValue: values.Country, setter: setters.countter}, null),
+		e( CompanyRowInput, {rowID: "a", labelName: "Address", labelValue: values.Address, setter: setters.adder}, null),
 		e( CompanyRowInput, {rowID: "e", labelName: "Email", labelValue: values.Email, setter: setters.emailer}, null),
 
-		e( 'button', { className: "delete_button", key: "sdfsdf", onClick: ( () => putter("company/"+values.Id, currentValues)), style: {width: "-webkit-fill-available", height: "26px"} }, "Save")
-
+		e( 'button', { className: "delete_button", key: "sdfsdf", onClick: ( () => putter("company/"+values.Id, currentValues)), style: {width: "-webkit-fill-available", height: "26px"} }, "Save"),
 	])
 }
 
@@ -118,15 +114,12 @@ class Client extends React.Component {
 
 	constructor (props) {
 		super(props);
+		this.form = React.createRef();
 		this.state = {
 			companyData: null,
 			section: "showAll", 
 		};
 	}
-
-	//componentDidMount () {
-	//	this.fetcher( "all" )
-	//}
 
 	state = {
         companyData: null,
@@ -135,6 +128,7 @@ class Client extends React.Component {
 		name: "",
 		address: "",
 		city: "",
+		country: "",
 		email: "",
     };
 
@@ -147,6 +141,9 @@ class Client extends React.Component {
 	citySetter = event => {
 		this.setState({ city: event.target.value })
 	}
+	countrySetter = event => {
+		this.setState({ country: event.target.value })
+	}
 	emailSetter = event => {
 		this.setState({ email: event.target.value })
 	}
@@ -155,6 +152,7 @@ class Client extends React.Component {
 		namer: this.nameSetter,
 		adder: this.addressSetter,
 		citter: this.citySetter,
+		countter: this.countrySetter,
 		emailer: this.emailSetter,
 	}
 
@@ -182,6 +180,7 @@ class Client extends React.Component {
 				Id: newValues.id,
 				Name: newValues.name,
 				City: newValues.city,
+				Country: newValues.country,
 				Address: newValues.address,
 				email: newValues.email,
 			})
@@ -216,13 +215,12 @@ class Client extends React.Component {
 							id:				data.C.Id,
 							address:		data.C.Address,
 							city:			data.C.City,
+							country:		data.C.Country,
 							email:			data.C.Email
 
 						})
 					})
 					.catch(console.log);
-		
-
 	}
 	
 	render() {
@@ -234,7 +232,7 @@ class Client extends React.Component {
 				]),
 			]),
 			e( 'div', { className: 'panel', key: "righty" }, [
-				e(Section, { key: 'section', companyData: this.state.companyData, selection: this.state.section, putter: this.putter, setters: this.setters, currentValues: this.state}, null)
+				e(Section, { key: 'section', companyData: this.state.companyData, selection: this.state.section, putter: this.putter, setters: this.setters, currentValues: this.state }, null)
 			])
 		])
 	}
